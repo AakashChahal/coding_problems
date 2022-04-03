@@ -9,22 +9,22 @@
 # 2 parameters - arrays - no size limit
 # return true or false
 
+def answer(arr1, arr2):
+    common_dict = {}
+
+    for el in arr1:
+        if el in arr2:
+            common_dict[el] = True
+        else:
+            common_dict[el] = False
+
+    for val in common_dict.values():
+        if val:
+            return True
+
+    return False
+
 arr1 = ['a', 'b', 'c', 'x']
 arr2 = ['z', 'y', 'x']
 
-common_dict = {}
-
-for el in arr1:
-    if el in arr2:
-        common_dict[el] = True
-    else:
-        common_dict[el] = False
-
-for val in common_dict.values():
-    if val:
-        flag = True
-
-    else:
-        flag = False
-
-print(flag)    
+print(answer(arr1, arr2))

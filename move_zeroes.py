@@ -13,7 +13,7 @@
 
 from typing import List
 
-#! bruteforce solution
+#! bruteforce solution (2534ms runtime on leetcode)
 def move_zeroes(nums: List[int]) -> None:
     if len(nums) == 1:
         print(nums)
@@ -27,3 +27,18 @@ def move_zeroes(nums: List[int]) -> None:
 move_zeroes([0,1,0,3,12])
 move_zeroes([0])
 move_zeroes([0, 0, 1])
+
+#! optimized solution (168 ms runtime on leetcode)
+def move_zeroes_2(nums: List[int]) -> None:
+    if len(nums) == 1:
+        print(nums)
+        
+    else:
+        zeroes = [0] * nums.count(0)
+        while nums.count(0) != 0:
+            nums.remove(0)
+        nums.extend(zeroes)
+        print(nums)
+move_zeroes_2([0,1,0,3,12])
+move_zeroes_2([0])
+move_zeroes_2([0, 0, 1])

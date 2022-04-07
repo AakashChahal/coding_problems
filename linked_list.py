@@ -56,20 +56,23 @@ class LinkedList:
             temp = temp.next
 
     def remove(self, index):
-        if index < 0 or index > self.length:
-            return None
+        if index > self.length:
+            return
         if index == 0:
             temp = self.head
             self.head = temp.next
             del temp
+            self.length -= 1
 
         else:
             temp = self.head
             for i in range(1, index+1):
                 temp = temp.next
-                if i == index - i:
+                if i == index == 1:
+                    self.head.next = temp.next
+                elif i == index - i:
                     temp.next = temp.next.next
-
+            self.length -= 1
         return self
 
 
@@ -79,7 +82,14 @@ ll.add(50)
 ll.add(60)
 ll.insert(index=2, val=40)
 ll.prepend(10)
+print(list(ll.display()))
 ll.remove(2)
+print(list(ll.display()))
+ll.remove(0)
+print(list(ll.display()))
+ll.remove(2)
+print(list(ll.display()))
+ll.remove(1)
 print(list(ll.display()))
 
     

@@ -21,7 +21,11 @@ class LinkedList:
             self.tail = nextData
             self.length += 1
 
+        return self
+
     def insert(self, index, val):
+        if index >= self.length:
+            return self.add(val)
         newData = Node(val)
         if index == 0:
             newData.next = self.head
@@ -32,14 +36,17 @@ class LinkedList:
             prev = None
             for i in range(1, index+1):
                 temp = temp.next
-                if i == index - 2:
-                    prev = temp.next
+                if i == index - i:
+                    prev = temp
             
             newData.next = temp
             prev.next = newData
 
+        return self
+
     def prepend(self, val):
         self.insert(0, val)
+        return self
 
     def display(self):
         temp = self.head
@@ -48,13 +55,31 @@ class LinkedList:
             yield temp.data
             temp = temp.next
 
+    def remove(self, index):
+        if index < 0 or index > self.length:
+            return None
+        if index == 0:
+            temp = self.head
+            self.head = temp.next
+            del temp
+
+        else:
+            temp = self.head
+            for i in range(1, index+1):
+                temp = temp.next
+                if i == index - i:
+                    temp.next = temp.next.next
+
+        return self
+
 
 ll = LinkedList(20)
 ll.add(30)
-ll.add(40)
+ll.add(50)
 ll.add(60)
-ll.insert(index=3, val=50)
+ll.insert(index=2, val=40)
 ll.prepend(10)
+ll.remove(2)
 print(list(ll.display()))
 
     

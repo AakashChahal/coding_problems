@@ -2,6 +2,7 @@ class Node:
     def __init__(self, val) -> None:
         self.data = val
         self.next = None
+        self.prev = None
 
 class LinkedList:
     def __init__(self, val) -> None:
@@ -12,11 +13,13 @@ class LinkedList:
     def add(self, val):
         nextData = Node(val)
         if self.head == self.tail:
+            nextData.prev = self.head
             self.head.next = nextData
             self.tail = nextData
             self.length += 1
 
         else:
+            nextData.prev = self.tail
             self.tail.next = nextData
             self.tail = nextData
             self.length += 1
@@ -29,6 +32,7 @@ class LinkedList:
         newData = Node(val)
         if index == 0:
             newData.next = self.head
+            newData.prev = None
             self.head = newData
 
         else:
@@ -41,6 +45,7 @@ class LinkedList:
             
             newData.next = temp
             prev.next = newData
+            newData.prev = prev
 
         return self
 
@@ -56,23 +61,31 @@ class LinkedList:
             temp = temp.next
 
     def remove(self, index):
-        if index > self.length:
-            return
+        if index < 0 or index > self.length:
+            return None
         if index == 0:
             temp = self.head
             self.head = temp.next
-            del temp
             self.length -= 1
+            del temp
 
         else:
             temp = self.head
+            print(index)
             for i in range(1, index+1):
                 temp = temp.next
-                if i == index == 1:
-                    self.head.next = temp.next
-                elif i == index - i:
-                    temp.next = temp.next.next
-            self.length -= 1
+                print(i, temp.data)
+                # if i == index == 1:
+                #     self.head.next = temp.next
+                #     temp.prev = self.head
+                if i == index:
+                    print("entered")
+                    print(temp.data, temp.prev.data, temp.next.data)
+                    temp.prev.next = temp.next
+                    temp.next.prev = temp.prev
+                    del temp
+                    self.length -= 1
+
         return self
 
 
@@ -85,9 +98,9 @@ ll.prepend(10)
 print(list(ll.display()))
 ll.remove(2)
 print(list(ll.display()))
-ll.remove(0)
+ll.remove(3)
 print(list(ll.display()))
-ll.remove(2)
-print(list(ll.display()))
-ll.remove(1)
-print(list(ll.display()))
+# ll.remove(4)
+# print(list(ll.display()))
+
+    
